@@ -133,6 +133,9 @@ class Restaurant(Location):
         lb, ub = ci[capacity]
         self.spreading_rate = normal_ci(lb, ub, 20)
         if self.covid_model.current_state == SimulationState.POST_WORK_ACTIVITY:
+            if len(self.humans) > 0:
+                print("Restaurant is spreading infection")
+                print(f"Number of customers: {len(self.humans)}")
             self.spread_infection()
 
 class District(Location):
