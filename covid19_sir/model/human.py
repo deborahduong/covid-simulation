@@ -446,6 +446,7 @@ class Adult(Human):
             if human != self and human.personal_decision(Dilemma.ACCEPT_FRIEND_INVITATION_TO_RESTAURANT):
                 accepted.append(human)
                 if len(accepted) >= event_size: break
+        print(f"Accepted: {len(accepted)}")
         if len(accepted) == 1: return
         outdoor = flip_coin(linear_rescale(self.properties.risk_tolerance, 0, 0.5))
         if flip_coin(linear_rescale(self.work_info.base_income, 0, 1/5)):
@@ -455,6 +456,7 @@ class Adult(Human):
         event = self.work_district.get_available_restaurant(len(accepted), outdoor, restaurant_type)
         if event is not None and not outdoor:
             event = self.work_district.get_available_restaurant(len(accepted), True, restaurant_type)
+        if event is None: print("No restaurant available")
         if event is None: return
         event.available -= len(accepted)
         for human in accepted:
@@ -478,7 +480,7 @@ class Adult(Human):
         elif self.covid_model.current_state == SimulationState.COMMUTING_TO_HOME:
             if self.social_event is not None:
                 self.home_district.move_from(self, self.social_event)
-                self.social_event.available = True
+                self.social_event.available += 1
                 self.days_since_last_social_event = 0
                 self.social_event = None
             else:
