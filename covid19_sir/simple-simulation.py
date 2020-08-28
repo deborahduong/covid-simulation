@@ -62,6 +62,8 @@ setup_city_layout(scenario[sc]['model'], population_size)
 
 # ------------------------------------------------------------------------------
 
+"""
+
 sc = 2 # complete lockdown
 print(f"Setting up scenario {sc}")
 scenario[sc] = {}
@@ -226,11 +228,13 @@ sc7_model.add_listener(RemovePolicy(sc7_model, SocialPolicy.LOCKDOWN_HIGH_SCHOOL
 scenario[sc]['parameters'] = sc7_parameters
 scenario[sc]['model'] = sc7_model
 
+"""
+
 ################################################################################
 # Simulation of all scenarios
 
-for sc in scenario:
-#for sc in [1]:
+#for sc in scenario:
+for sc in [1]:
     #print("--------------------------------------------------------------------------------")
     print(f"Running scenario {sc}")
     set_parameters(scenario[sc]['parameters'])

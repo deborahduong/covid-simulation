@@ -269,6 +269,20 @@ class CovidModel(Model):
         # Cycles thru all the states before ending a simulation step
         while not flag:
             logger().info(f"STATE: {self.current_state}")
+            for agent in self.agents:
+                if type(agent).__name__ == 'District':
+                    print("{} District:".format(agent.name))
+                    for i,building in enumerate(agent.locations):
+                        num_humans_in_rooms = [len(room.humans) for room in building.locations]
+                        print("{0}{1}".format(type(building).__name__, i))
+                        print(num_humans_in_rooms)
+                        humans_in_building = [human.unique_id for human in building.humans]
+                        print(humans_in_building)
+                    for i,building in enumerate(agent.locations):
+                        for j,room in enumerate(building.locations):
+                            humans_in_rooms = [human.unique_id for human in room.humans]
+                            print("{0}{1}-room{2}".format(type(building).__name__, i,j))
+                            print(humans_in_rooms)
             self.schedule.step()
             self.current_state = self.next_state[self.current_state]
             if self.current_state == SimulationState.MORNING_AT_HOME:
