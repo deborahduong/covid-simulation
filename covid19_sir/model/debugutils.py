@@ -26,6 +26,9 @@ class DebugUtils:
                     humans_in_rooms = [human.unique_id for human in room.humans]
                     print("{0}{1}-room{2}".format(type(building).__name__, i,j))
                     print(humans_in_rooms)
+                    humans_in_building = [human.unique_id for human in building.humans]
+                    print("{0}{1}".format(type(building).__name__, i))
+                    print(humans_in_building)
 
     def _populate(self, model):
         for agent in model.agents:
